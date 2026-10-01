@@ -1,0 +1,16 @@
+import assert from 'node:assert/strict';
+import {acceleration,advance} from '../physics.js';
+const approx=(a,b)=>assert.ok(Math.abs(a-b)<1e-7,`${a} != ${b}`);
+let s={mass:2,force:0,mu:0,v:2,x:0};
+approx(advance(s,3).x,6);approx(advance(s,3).v,2);
+approx(acceleration({...s,force:8}).a,4);
+approx(acceleration({...s,force:8,mass:4}).a,2);
+approx(acceleration({...s,v:0,mu:.2,force:3}).a,0);
+approx(acceleration({...s,v:0,mu:.2,force:-3}).a,0);
+s={...s,mu:.15};for(let i=0;i<1000;i++)s=advance(s,.005);
+approx(s.v,0);approx(s.x,4/(2*.15*9.8));
+s={mass:2,force:-8,mu:0,v:2,x:0};s=advance(s,1);
+approx(s.v,-2);approx(s.x,0);
+s={mass:2,force:-8,mu:.1,v:2,x:0};for(let i=0;i<1000;i++)s=advance(s,.005);
+assert.ok(s.v<0);assert.ok(s.x<0);
+console.log('Passed: inertia, net force, mass, static friction, stop without reversal, and forced reversal.');
