@@ -22,3 +22,9 @@ Di Settings → Pages → Build and deployment, pilih Deploy from a branch, bran
 Model menggunakan bidang horizontal, g = 9.8 m/s², dan koefisien gesek statis serta kinetis yang disamakan. Tidak mencakup gerak rotasi atau hambatan udara. Catatan refleksi tersimpan lokal di peramban dan dapat diunduh; nilai latihan tidak terkirim ke server atau dosen.
 
 Untuk menambah topik: buat folder di `topik/`, gunakan navigasi relatif, dan aktifkan kartu topik di beranda. Berkas `build-site.py` membangun beranda dan halaman Gaya; jika mengedit HTML langsung, selaraskan juga skrip tersebut sebelum menjalankannya lagi.
+
+## Topik 5 — Usaha dan Energi
+
+`topik/energi/index.html` menggunakan pendekatan konseptual tanpa rumus dan perhitungan untuk PGMI. Empat eksplorasi visual: senter, kipas, menggosok tangan, dan bola jatuh. Latihan berupa pertanyaan terbuka dengan pembahasan. Catatan dapat diunduh dan tidak dikirim ke server.
+
+Jalankan `python3 build-energy.py` untuk membangun ulang halaman dari sumber. Interaksi berada di `energy.js`.
