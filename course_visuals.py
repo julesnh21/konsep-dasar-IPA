@@ -22,6 +22,10 @@ def visual(slug,key):
   for x,y in [(180,80),(300,100),(176,140),(306,160)]:s+=f'<circle cx="{x-12 if x<240 else x+12}" cy="{y}" r="5" fill="#42a1bc"/>'
   s+=text(240,25,{'amati':'Titik air di luar gelas','duga':'Dugaan: air dari udara','uji':'Bandingkan dingin dan suhu ruang'}[key])
   s+=text(240,125,'air dingin',17)
+  if key=='uji':
+   s='<path d="M65 45L78 190H202L215 45Z" fill="#b5dbe4" stroke="#507c8a" stroke-width="3"/><path d="M265 45L278 190H402L415 45Z" fill="#dde8df" stroke="#507c8a" stroke-width="3"/>'
+   for x,y in [(63,85),(211,115),(68,150)]:s+=f'<circle cx="{x}" cy="{y}" r="5" fill="#42a1bc"/>'
+   s+=text(140,115,'air dingin')+text(340,110,'air suhu ruang',15)+text(240,225,'Wadah serupa · periksa sisi luar keduanya',15)
  elif slug=='pengukuran':
   start=2 if key=='geser' else 0
   s=box(40,140,400,50,'','#f1ddac')
@@ -79,7 +83,7 @@ def visual(slug,key):
    s+='<path d="M70 130H100M80 150H90M385 130L405 150M405 130L385 150" stroke="#153e36" stroke-width="3"/>'+text(240,235,'Baterai dan lampu · model rangkaian',16)
  elif slug=='keanekaragaman':
   if key=='api':s='<path d="M240 35Q310 110 280 175Q240 220 200 175Q165 125 220 85Q220 145 240 35" fill="#d48638"/>'+text(240,235,'Membesar bukan bukti tunggal kehidupan',15)
-  elif key=='biji':s='<ellipse cx="240" cy="140" rx="45" ry="62" transform="rotate(25 240 140)" fill="#b38b5c"/><path d="M240 135Q220 90 255 60" fill="none" stroke="#14634e" stroke-width="10"/>'+text(240,230,'Biji viabel dapat berada pada keadaan dorman',15)
+  elif key=='biji':s='<ellipse cx="240" cy="130" rx="45" ry="62" transform="rotate(25 240 130)" fill="#b38b5c"/><ellipse cx="240" cy="130" rx="34" ry="48" transform="rotate(25 240 130)" fill="#e5d5aa"/><path d="M240 155Q220 130 245 105" fill="none" stroke="#607c40" stroke-width="7"/>'+text(350,125,'embrio',16)+arrow(305,130,260,130)+text(240,230,'Skema biji dorman · belum berkecambah',15)
   else:s='<path d="M220 115H260L275 210H205Z" fill="#d6bd95"/><path d="M145 120Q240 -20 335 120Z" fill="#b76845"/>'+text(240,235,'Jamur memperoleh nutrien dari bahan organik',15)
  elif slug=='tumbuhan':
   s='<path d="M240 195V60M240 190L205 225M240 195L270 225M240 195V230" stroke="#738444" stroke-width="6" fill="none"/><path d="M240 120Q140 35 150 115Q190 145 240 120M240 95Q335 20 320 95Q285 125 240 95" fill="#63a66c"/>'
