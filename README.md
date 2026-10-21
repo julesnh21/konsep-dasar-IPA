@@ -1,30 +1,46 @@
-# Konsep Dasar IPA
+# Konsep Dasar IPA — PGMI
 
-Portal pembelajaran statis untuk mahasiswa PGMI. Beranda memuat peta 16 topik; Zat dan Perubahannya serta Gaya dan Gerak tersedia. Topik lain ditandai belum tersedia.
+Portal satu semester dengan 16 topik konseptual, 48 keadaan visual yang dapat dipilih, kegiatan mahasiswa, cek pemahaman, dan refleksi. Materi fisika memakai teori serta aplikasi sehari-hari tanpa rumus; perhitungan sederhana dibatasi pada jarak, waktu, dan kelajuan rata-rata.
 
-## Menjalankan lokal
+Website: https://julesnh21.github.io/konsep-dasar-IPA/
 
-Gunakan server HTTP, misalnya `python3 -m http.server 8000`, lalu buka `http://localhost:8000`. JavaScript module memerlukan HTTP, bukan membuka file langsung.
+## Peta semester
 
-## Publikasi GitHub Pages
+`semester.html` memuat rancangan 16 pertemuan: 14 sesi pembelajaran, UTS, dan UAS. Gelombang–bunyi dengan cahaya, serta struktur tumbuhan dengan hewan, digabung pada dua sesi dengan batas konsep inti dan bacaan pengayaan yang dijelaskan pada peta. Peta ini bukan RPS resmi.
 
-Di Settings → Pages → Build and deployment, pilih Deploy from a branch, branch `main`, folder `/ (root)`, lalu Save. Situs: https://julesnh21.github.io/konsep-dasar-IPA/ setelah proses deployment selesai.
+## Menjalankan dan mengubah
 
-## Struktur
+Gunakan `python3 -m http.server 8000`, lalu buka `http://localhost:8000`.
 
-- `index.html`: menu topik.
-- `topik/gaya/index.html`, `motion.js`, `physics.js`: materi, simulasi gaya satu dimensi, latihan, dan refleksi.
-- `topik/zat/`: materi sebelumnya yang diintegrasikan. Ilustrasi tetap bersumber dari repositori asal melalui URL mentah GitHub.
-- `styles.css`: gaya portal dan topik Gaya dan Gerak.
+- `course_data.py`: naskah seluruh materi, kasus visual, kegiatan, pertanyaan, dan peta pertemuan.
+- `course_visuals.py`: diagram SVG konseptual yang dapat diubah secara presisi.
+- `build-site.py`: pembangun halaman statis, peta semester, asesmen, dan catatan kalibrasi.
+- `learn.js`: pergantian visual, penyimpanan/unduhan catatan, dan kalkulator kelajuan.
+- `styles.css` dan `course.css`: tampilan responsif.
 
-## Batas model dan data
+Sesudah mengubah sumber Python, jalankan `python3 build-site.py`. Tidak perlu paket npm atau framework untuk menjalankan website. Halaman HTML hasil build turut disimpan agar dapat langsung diterbitkan di GitHub Pages.
 
-Model menggunakan bidang horizontal, g = 9.8 m/s², dan koefisien gesek statis serta kinetis yang disamakan. Tidak mencakup gerak rotasi atau hambatan udara. Catatan refleksi tersimpan lokal di peramban dan dapat diunduh; nilai latihan tidak terkirim ke server atau dosen.
+## Pemeriksaan
 
-Untuk menambah topik: buat folder di `topik/`, gunakan navigasi relatif, dan aktifkan kartu topik di beranda. Berkas `build-site.py` membangun beranda dan halaman Gaya; jika mengedit HTML langsung, selaraskan juga skrip tersebut sebelum menjalankannya lagi.
+```
+python3 build-site.py
+python3 tests/course.test.py
+python3 tests/check_links.py
+node --check learn.js
+```
 
-## Topik 5 — Usaha dan Energi
+GitHub Actions menjalankan pemeriksaan tersebut serta memastikan hasil build konsisten. Pemeriksaan peramban desktop dan ponsel juga dilakukan pada versi ini; catatannya ada di `KALIBRASI.md`.
 
-`topik/energi/index.html` menggunakan pendekatan konseptual tanpa rumus dan perhitungan untuk PGMI. Empat eksplorasi visual: senter, kipas, menggosok tangan, dan bola jatuh. Latihan berupa pertanyaan terbuka dengan pembahasan. Catatan dapat diunduh dan tidak dikirim ke server.
+## Penggunaan oleh mahasiswa
 
-Jalankan `python3 build-energy.py` untuk membangun ulang halaman dari sumber. Interaksi berada di `energy.js`.
+Pilih topik, buat dugaan sebelum membuka penjelasan visual, kerjakan kegiatan, lalu periksa alasan melalui pembahasan. Catatan disimpan lokal per topik jika penyimpanan peramban tersedia dan dapat diunduh sebagai teks. Tidak ada login, pengiriman nilai, atau pencatatan kehadiran.
+
+Latihan esai UTS/UAS adalah bahan terbuka beserta rubrik, bukan ujian daring terkendali atau naskah rahasia. Dosen menentukan pelaksanaan dan penilaian.
+
+## Batas bahan
+
+Visual merupakan skema, bukan ukuran anatomi, lintasan, atau jarak yang selalu berskala. Batas model dijelaskan di halaman. Kalibrasi internal tidak menggantikan penilaian ahli eksternal dan belum menunjukkan efektivitas belajar pada mahasiswa.
+
+## Publikasi
+
+Settings → Pages → Deploy from a branch → `main` → `/ (root)`. Materi lama Zat dan Perubahannya pada alamat subhalaman tetap diarahkan ke halaman terpadu. Repositori lama yang terpisah tidak diubah.

@@ -1,0 +1,11 @@
+(()=>{
+ const buttons=[...document.querySelectorAll('[data-case]')],panels=[...document.querySelectorAll('[data-panel]')];
+ buttons.forEach(button=>button.addEventListener('click',()=>{const index=button.dataset.case;buttons.forEach(b=>b.setAttribute('aria-pressed',String(b===button)));panels.forEach(panel=>{panel.hidden=panel.dataset.panel!==index;panel.querySelectorAll('details').forEach(d=>d.open=false);});document.getElementById('caseStatus').textContent='Visual '+button.textContent+' ditampilkan.';}));
+ const notes=document.getElementById('notes'),status=document.getElementById('notesStatus');
+ const key='inkuirilab-ipa-semester-'+location.pathname.split('/').filter(Boolean).slice(-2,-1)[0];
+ if(notes){try{notes.value=localStorage.getItem(key)||'';}catch{status.textContent='Penyimpanan otomatis tidak tersedia. Unduh catatan sebelum menutup halaman.';}
+ notes.addEventListener('input',()=>{try{localStorage.setItem(key,notes.value);}catch{status.textContent='Catatan belum tersimpan otomatis. Gunakan Unduh catatan.';}});
+ document.getElementById('download').addEventListener('click',()=>{const text=document.title+'\n\n'+notes.value;const url=URL.createObjectURL(new Blob([text],{type:'text/plain;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='Catatan_'+location.pathname.split('/').filter(Boolean).slice(-2,-1)[0]+'.txt';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);});document.getElementById('print').addEventListener('click',()=>window.print());}
+ const distance=document.getElementById('distance'),duration=document.getElementById('duration');
+ if(distance&&duration){function update(){const d=Number(distance.value),t=Number(duration.value),result=document.getElementById('speedResult');if(distance.value===''||duration.value===''||!Number.isFinite(d)||!Number.isFinite(t)||d<0||t<=0||d>10000||t>10000){result.textContent='Gunakan jarak 0–10.000 meter dan waktu lebih dari 0 hingga 10.000 sekon.';return;}result.textContent='Kelajuan rata-rata: '+new Intl.NumberFormat('id-ID',{maximumFractionDigits:2}).format(d/t)+' meter per sekon.';}distance.addEventListener('input',update);duration.addEventListener('input',update);update();}
+})();

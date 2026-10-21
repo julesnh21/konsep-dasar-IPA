@@ -8,7 +8,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: node tests/physics.test.js
-      - run: node --check motion.js
-      - run: node --check energy.js
+      - run: python3 build-site.py
+      - run: git diff --exit-code
+      - run: node --check learn.js
+      - run: python3 tests/course.test.py
       - run: python3 tests/check_links.py
